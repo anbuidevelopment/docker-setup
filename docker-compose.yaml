@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      - MSSQL_SA_PASSWORD=tap@123
+      - ACCEPT_EULA=1
+      - MSSQL_PID=Developer
+      - MSSQL_USER=sa
+    ports:
+      - "1433:1433"
+  test_client:
+    build: .
+    command: python3 main.py
+    depends_on:
+      - db
